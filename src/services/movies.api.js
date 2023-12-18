@@ -9,6 +9,6 @@ export const fetchMovies = async (endpoint, query = '') => {
     // accept: 'aplication/json',
     query,
   });
-  const { data } = await axios.get(`${endpoint}?&${params}`);
+  const { data } = await axios.get(`${endpoint}?${params}`);
   return data;
 };

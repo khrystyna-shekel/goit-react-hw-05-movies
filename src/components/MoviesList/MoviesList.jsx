@@ -27,6 +27,7 @@ const MoviesList = ({ movies, title }) => {
         {movies?.map(({ title, id, poster_path }) => (
           <MovieCard
             key={id}
+            id={id}
             title={title}
             poster_path={poster_path}
             handleClick={handleClick}

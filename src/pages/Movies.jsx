@@ -38,7 +38,7 @@ const Movies = () => {
       <SearchBar handleSubmit={handleSubmit} />
       {queryWord && (
         <TrendingMoviesList
-          title={`Movies with title ${queryWord}`}
+          title={`Movies with title "${queryWord}"`}
           movies={searchedMovies}
         />
       )}
