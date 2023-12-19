@@ -1,6 +1,6 @@
 import Header from 'components/Header/Header';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { fetchMovies } from 'services/movies.api';
 import {
   LinkWrapper,
@@ -62,6 +62,7 @@ const MovieDetails = () => {
           <StyledNavLink to="cast">Cast</StyledNavLink>
           <StyledNavLink to="reviews">Reviews</StyledNavLink>
         </LinkWrapper>
+        <Outlet />
       </StyledSection>
     </>
   );
