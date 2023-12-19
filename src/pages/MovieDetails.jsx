@@ -1,6 +1,6 @@
 import Header from 'components/Header/Header';
-import React, { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchMovies } from 'services/movies.api';
 import {
   LinkWrapper,
@@ -14,6 +14,9 @@ import { StyledBtn } from 'components/SearchBar/SearchBar.styled';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
+  const location = useLocation();
+  const navigate = useNavigate();
+  const goBackRef = useRef(location.state?.from || '/');
 
   useEffect(() => {
     const fetchMoviesById = async () => {
@@ -29,9 +32,10 @@ const MovieDetails = () => {
 
   const { original_title, vote_average, overview, genres, poster_path } =
     movieInfo;
+  const userScore = Number(vote_average).toFixed(1);
 
   const handleGoBack = () => {
-    console.log('ha');
+    navigate(goBackRef.current);
   };
 
   return (
@@ -51,7 +55,7 @@ const MovieDetails = () => {
           />
           <MovieInfo>
             <h1>{original_title}</h1>
-            <p>User score: {vote_average}/10</p>
+            <p>User score: {userScore}/10</p>
             <h2>Overview</h2>
             <p>{overview}</p>
             <h2>Genres</h2>
@@ -62,7 +66,9 @@ const MovieDetails = () => {
           <StyledNavLink to="cast">Cast</StyledNavLink>
           <StyledNavLink to="reviews">Reviews</StyledNavLink>
         </LinkWrapper>
-        <Outlet />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Outlet />
+        </Suspense>
       </StyledSection>
     </>
   );
