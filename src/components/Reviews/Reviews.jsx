@@ -21,21 +21,19 @@ const Reviews = () => {
 
   return (
     <>
-      {reviews && (
+      {reviews.length > 0 ? (
         <StyledList>
-          {reviews.length > 0 ? (
-            reviews.map(el => (
-              <li key={el.id}>
-                <h4>Author: {el.author}</h4>
-                <h4>Username: {el.author_details.username}</h4>
-                <h4>Rating: {el.author_details.rating}</h4>
-                <p>{el.content}</p>
-              </li>
-            ))
-          ) : (
-            <h4>No reviews added</h4>
-          )}
+          {reviews.map(el => (
+            <li key={el.id}>
+              <h4>Author: {el.author}</h4>
+              <h4>Username: {el.author_details.username}</h4>
+              <h4>Rating: {el.author_details.rating}</h4>
+              <p>{el.content}</p>
+            </li>
+          ))}
         </StyledList>
+      ) : (
+        <h4>No reviews added</h4>
       )}
     </>
   );

@@ -1,37 +1,35 @@
 import MovieCard from 'components/MovieCard/MovieCard';
 import React from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { StyledTitle, StyledList } from './MoviesList.styled';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 const MoviesList = ({ movies, title }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const queryWord = searchParams.get('queryWord');
-
-  function handleClick(movieId) {
-    const { state, pathname } = location;
-    if (location.pathname === '/') {
-      navigate(`movies/${movieId}`, { state: { ...state, from: pathname } });
-    } else {
-      navigate(`${movieId}`, {
-        state: { ...state, from: `${pathname}?queryWord=${queryWord}` },
-      });
-    }
-  }
+  const location = useLocation();
+  const { state, pathname } = location;
 
   return (
     <section>
       <StyledTitle>{title}</StyledTitle>
       <StyledList>
         {movies?.map(({ title, id, poster_path }) => (
-          <MovieCard
+          <Link
             key={id}
-            id={id}
-            title={title}
-            poster_path={poster_path}
-            handleClick={handleClick}
-          />
+            to={location.pathname === '/' ? `movies/${id}` : `${id}`}
+            state={
+              location.pathname === '/'
+                ? { ...state, from: pathname }
+                : { ...state, from: `${pathname}?queryWord=${queryWord}` }
+            }
+          >
+            <MovieCard
+              key={id}
+              id={id}
+              title={title}
+              poster_path={poster_path}
+            />
+          </Link>
         ))}
       </StyledList>
     </section>

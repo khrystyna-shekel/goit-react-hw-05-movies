@@ -1,6 +1,6 @@
 import Header from 'components/Header/Header';
 import SearchBar from 'components/SearchBar/SearchBar';
-import TrendingMoviesList from 'components/MoviesList/MoviesList';
+import MoviesList from 'components/MoviesList/MoviesList';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchMovies } from 'services/movies.api';
@@ -36,8 +36,8 @@ const Movies = () => {
     <div>
       <Header />
       <SearchBar handleSubmit={handleSubmit} />
-      {queryWord && (
-        <TrendingMoviesList
+      {searchedMovies.length > 0 && (
+        <MoviesList
           title={`Movies with title "${queryWord}"`}
           movies={searchedMovies}
         />

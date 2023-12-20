@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyledLi } from './MovieCard.styled';
 
-const MovieCard = ({ title, id, poster_path, handleClick }) => {
+const MovieCard = ({ title, poster_path }) => {
   return (
-    <StyledLi onClick={() => handleClick(id)}>
+    <StyledLi>
       <img
         src={`https://image.tmdb.org/t/p/original${poster_path}`}
         alt="movie poster"

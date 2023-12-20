@@ -20,5 +20,6 @@ export const StyledLi = styled.li`
     font-size: 18px;
     text-align: center;
     padding-top: 4px;
+    color: black;
   }
 `;
